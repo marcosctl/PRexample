@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * Implements hook_preprocess_block().
+ */
+function mytheme_preprocess_block(&$variables) {
+    $content = $variables['elements']['content'];
+
+    $events = \Drupal::entityTypeManager()->getStorage('node')
+        ->loadByProperties(['type' => 'event', 'status' => 1]);
+
+    $markup = '<h3>Upcoming Events</h3><ul id="event-list">';
+    foreach ($events as $event) {
+        if ($field_show_in_list = true) {
+            var_dump($event->get('field_show_in_list')->getValue());
+            $field_show_in_list = $event->get('field_show_in_list')->getValue();
+            $link_title = isset($content['link_title']) ? $content['link_title'] : 'Click to register for the event';
+            if ($field_show_in_list = true) {
+                $markup .= '<a href="/node/' . $event->id() .'">' . $link_title . '</a>';
+            }
+        }
+    }
+    $markup .= '</ul>';
+
+    $variables['elements']['content']['links'] = $markup;
+}
