@@ -12,7 +12,8 @@ use Drupal\Core\Block\BlockBase;
  *  admin_label = @Translation("Example block"),
  * )
  */
-class ExampleBlock extends BlockBase {
+class ExampleBlock extends BlockBase
+{
 
     /**
      * {@inheritdoc}
@@ -28,7 +29,7 @@ class ExampleBlock extends BlockBase {
         foreach ($properties as $property) {
             var_dump($property->get('field_show_in_list')->getValue());
             $field_show_in_list = $property->get('field_show_in_list')->getValue();
-            $link = '<a href="/node/' . $property->id() .'">' . $property->label() . '</a>';
+            $link = '<a href="/node/' . $property->id() . '">' . $property->label() . '</a>';
             if ($field_show_in_list = true) {
                 $markup .= '<li><h3>' . $link . '</h3></li>';
             }
